@@ -4,6 +4,7 @@ import { API_URL } from "../config/constants";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import { GameCard } from "../components/gameCard"
+const {  Pagination  } = require("antd");
 
 export function GameTitlePage() {
   let { index } = useParams();
@@ -31,6 +32,9 @@ export function GameTitlePage() {
             {games.map(function (game, index){
                 return <GameCard game ={game} key ={index}/>;
             })}
+        </div>
+        <div id="page">
+            <Pagination className="pagination" defaultCurrent={1} total={1000} defaultPageSize={10} responsive={true} />
         </div>
     </div>
   );

@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { API_URL } from "./config/constants";
 import { GameTitlePage } from "./games/index";
+import { MainPage } from "./main/index"
 
 function App() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ function App() {
             <a
               id="menu__contents"
               onClick={function () {
-                navigate("/games");
+                navigate("/games/");
               }}
             >
               게임
@@ -24,7 +25,7 @@ function App() {
             <a
               id="menu__contents"
               onClick={function () {
-                navigate("/movies");
+                navigate("/movies/");
               }}
             >
               영상
@@ -32,7 +33,7 @@ function App() {
             <a
               id="menu__contents"
               onClick={function () {
-                navigate("/books");
+                navigate("/books/");
               }}
             >
               도서
@@ -52,9 +53,12 @@ function App() {
       </div>
       <div id="body">
         <Routes>
+          <Route path="/">
+            <Route path="" element={<MainPage/>}/>
+          </Route>
           <Route path="games">
             <Route path=":index" element={<GameTitlePage/>} />
-            <Route path="" element={<GameTitlePage/>}/>
+            <Route path="" element={<GameTitlePage/>} />
             <Route path="titles/:id">
             </Route>
           </Route>

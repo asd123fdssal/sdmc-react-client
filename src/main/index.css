@@ -1,0 +1,9 @@
+#banner {
+    display: flex;
+    max-height: 300px;
+}
+
+#banner-img  {
+    width: 204px;
+    margin: 10px 10px 10px 10px;
+}
