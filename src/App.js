@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { API_URL } from "./config/constants";
 import { GameTitlePage } from "./games/index";
 import { MainPage } from "./main/index"
+import { LoginPage } from "./login/index"
 
 function App() {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ function App() {
           <Route path="/">
             <Route path="" element={<MainPage/>}/>
           </Route>
+          <Route path="login" element={<LoginPage/>}/>
           <Route path="games">
             <Route path=":index" element={<GameTitlePage/>} />
             <Route path="" element={<GameTitlePage/>} />
