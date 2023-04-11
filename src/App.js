@@ -3,7 +3,8 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { API_URL } from "./config/constants";
 import { GameTitlePage } from "./games/index";
 import { MainPage } from "./main/index"
-import { LoginPage } from "./login/index"
+import {Login} from "./login/index"
+import { SignUpPage } from "./signup";
 
 function App() {
   const navigate = useNavigate();
@@ -57,7 +58,10 @@ function App() {
           <Route path="/">
             <Route path="" element={<MainPage/>}/>
           </Route>
-          <Route path="login" element={<LoginPage/>}/>
+          <Route path="login" element={<Login/>}>
+
+          </Route>
+          <Route path="signup" element={<SignUpPage/>}/>
           <Route path="games">
             <Route path=":index" element={<GameTitlePage/>} />
             <Route path="" element={<GameTitlePage/>} />
@@ -66,7 +70,6 @@ function App() {
           </Route>
           <Route path="/books" element={<h2>books</h2>} />
           <Route path="/movies" element={<h2>movies</h2>} />
-          <Route path="/login" element={<h2>login</h2>} />
         </Routes>
       </div>
       <div id="footer"></div>

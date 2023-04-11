@@ -1,9 +1,27 @@
-.login-frame {
+.container {
     width: 100%;
-    margin-top: 40px;
+    height: 100%;
+    margin: 40px;
+    display: flex;
+}
+
+.forms{
+    margin: auto;
 }
 
 .buttons {
     width: 100%;
     margin: 12px 0 6px 0;
+}
+
+#error-field {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#error-message {
+    margin: auto;
+    padding-bottom: 12px;
+    display: none;
 }

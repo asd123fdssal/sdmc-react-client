@@ -9,7 +9,6 @@ const {  Pagination  } = require("antd");
 export function GameTitlePage() {
   let { index } = useParams();
   index = (index === undefined) ? 1 : index;
-  console.log(index);
   const [games, setGames] = useState([]);
 
   useEffect(() => {
