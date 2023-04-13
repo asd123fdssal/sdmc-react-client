@@ -14,7 +14,12 @@ export function Login(){
         axios
             .get(`${API_URL}/login`)
             .then((res) => {
+                if(res.data.loginResult){
+                    // 이미 로그인 시 메인으로
+                    setIsSuccess(true);
+                }else{
 
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -28,7 +33,7 @@ export function Login(){
                 // 로그인 성공 여부 체크
                 if(res.data.loginResult){
                     // 로그인 성공 시 메인으로 리다이렉트
-                    //setIsSuccess(true);
+                    setIsSuccess(true);
                 }else{
 
                 }
