@@ -1,13 +1,30 @@
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import {Routes, Route, Link, useNavigate, useLocation, Navigate} from "react-router-dom";
 import { API_URL } from "./config/constants";
 import { GameTitlePage } from "./games/index";
 import { MainPage } from "./main/index"
-import {Login} from "./login/index"
+import { Login } from "./login/index"
 import { SignUpPage } from "./signup";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {Logout} from "./login/logout";
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [login, setLogin] = useState(false);
+
+  useEffect(() => {
+    if(location.pathname !== '/'){
+      axios.get(`${API_URL}/auth`).then((res) => {
+        setLogin(res.data.loginResult);
+        if(res.data.loginResult){
+          return <Navigate to={location.pathname} />
+        }
+      });
+    }
+  }, [location]);
+
   return (
     <div>
       <div id="header">
@@ -41,15 +58,23 @@ function App() {
               도서
             </a>
             <a id="padding__a"></a>
-            <a
+            {login || <a
               id="menu__my"
               onClick={function () {
                 navigate("/login");
               }}
             >
               로그인
-            </a>
-            <a id="menu__my">내 정보</a>
+            </a>}
+            {login && <a
+                id="menu__my"
+                onClick={function () {
+                  navigate("/logout");
+                }}
+            >
+              로그아웃
+            </a>}
+            {login && <a id="menu__my">내 정보</a>}
           </div>
         </div>
       </div>
@@ -58,9 +83,8 @@ function App() {
           <Route path="/">
             <Route path="" element={<MainPage/>}/>
           </Route>
-          <Route path="login" element={<Login/>}>
-
-          </Route>
+          <Route path="login" element={<Login/>}/>
+          <Route path="logout" element={<Logout/>}/>
           <Route path="signup" element={<SignUpPage/>}/>
           <Route path="games">
             <Route path=":index" element={<GameTitlePage/>} />

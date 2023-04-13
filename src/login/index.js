@@ -9,17 +9,21 @@ import {SHA256, enc} from 'crypto-js';
 export function Login(){
     const [form] = Form.useForm();
     const [isSuccess, setIsSuccess] = useState(false);
+    const checkLogin = function (result){
+        if(result){
+            // 이미 로그인 시 메인으로
+            setIsSuccess(true);
+            // 로그인 버튼은 숨기고 로그아웃, 내정보를 표시한다.
+        }else{
+
+        }
+    };
 
     useEffect(() => {
         axios
             .get(`${API_URL}/login`)
             .then((res) => {
-                if(res.data.loginResult){
-                    // 이미 로그인 시 메인으로
-                    setIsSuccess(true);
-                }else{
-
-                }
+                checkLogin(res.data.loginResult);
             })
             .catch((error) => {
                 console.log(error);
@@ -30,13 +34,9 @@ export function Login(){
         if(!isSuccess){
             values.password = SHA256(values.password).toString(enc.Hex);
             axios.post(`${API_URL}/login`, values).then(res =>{
-                // 로그인 성공 여부 체크
-                if(res.data.loginResult){
-                    // 로그인 성공 시 메인으로 리다이렉트
-                    setIsSuccess(true);
-                }else{
-
-                }
+                checkLogin(res.data.loginResult);
+            }).catch((error) => {
+                console.log(error);
             });
         }
     }
