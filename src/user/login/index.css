@@ -23,5 +23,5 @@
 #error-message {
     margin: auto;
     padding-bottom: 12px;
-    display: none;
+    color: crimson;
 }

@@ -3,11 +3,11 @@ import {Routes, Route, Link, useNavigate, useLocation, Navigate} from "react-rou
 import { API_URL } from "./config/constants";
 import { GameTitlePage } from "./games/index";
 import { MainPage } from "./main/index"
-import { Login } from "./login/index"
-import { SignUpPage } from "./signup";
+import { Login } from "./user/login/index"
+import { SignUpPage } from "./user/signup";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Logout} from "./login/logout";
+import {Logout} from "./user/logout";
 
 function App() {
   const navigate = useNavigate();
@@ -15,14 +15,12 @@ function App() {
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
-    if(location.pathname !== '/'){
-      axios.get(`${API_URL}/auth`).then((res) => {
-        setLogin(res.data.loginResult);
-        if(res.data.loginResult){
-          return <Navigate to={location.pathname} />
-        }
-      });
-    }
+    axios.get(`${API_URL}/auth`).then((res) => {
+      setLogin(res.data.loginResult);
+      if(res.data.loginResult) {
+        return <Navigate to={location.pathname}/>
+      }
+    })
   }, [location]);
 
   return (

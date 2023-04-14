@@ -8,3 +8,9 @@
 .forms{
     margin: auto;
 }
+
+#error-message {
+    margin: auto;
+    padding-bottom: 12px;
+    color: crimson;
+}
