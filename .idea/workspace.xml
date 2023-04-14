@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="35158719-c4dd-40e0-8096-9688e30ff416" name="Changes" comment="" />
+    <list default="true" id="35158719-c4dd-40e0-8096-9688e30ff416" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/login/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/logout/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/logout/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/logout/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/logout/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/signup/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/signup/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/signup/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/signup/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,19 +44,23 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "login-proto",
-    "last_opened_file_path": "K:/workspace/sdmc-react-client/src/login/logout",
+    "last_opened_file_path": "K:/workspace/sdmc-react-client",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.lookFeel",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="K:\workspace\sdmc-react-client\src\login\logout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="K:\workspace\sdmc-react-client\src\user" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,6 +74,10 @@
       <workItem from="1681295803710" duration="54000" />
       <workItem from="1681295866287" duration="3361000" />
       <workItem from="1681351258529" duration="7307000" />
+      <workItem from="1681367506435" duration="9000" />
+      <workItem from="1681367519117" duration="1600000" />
+      <workItem from="1681431582420" duration="9000" />
+      <workItem from="1681431600283" duration="10289000" />
     </task>
     <servers />
   </component>
