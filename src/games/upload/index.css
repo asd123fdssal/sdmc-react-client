@@ -1,0 +1,117 @@
+#upload-container {
+    padding-top: 36px;
+}
+
+#upload-img-placeholder {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(230, 230, 230);
+    background: rgb(250, 250, 253);
+    margin-left: 16px;
+}
+
+#upload-img-placeholder > img {
+    width: 50px;
+    height: 50px;
+}
+
+#upload-img-placeholder > span {
+    font-size: 14px;
+    color: rgb(195, 194, 204);
+}
+
+.upload-name {
+    width: 200px;
+}
+
+.upload-label {
+    font-size: 18px;
+    width: 80px;
+}
+
+#product-description {
+    height: 150px;
+}
+
+#submit-button {
+    float: right;
+    background-color: rgb(30, 120, 255);
+    color: white;
+    border: none;
+    margin-top: 16px;
+}
+
+#upload-img {
+    width: 200px;
+    height: 200px;
+    margin-left: 16px;
+    object-fit: contain;
+}
+
+#tags-input {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 14px;
+    line-height: 1.5714285714285714;
+    background-color: #ffffff;
+    background-image: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d9d9d9;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.tags-child {
+    box-sizing: border-box;
+    margin: 6px 0 12px 0;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 12px;
+    line-height: 20px;
+    list-style: none;
+    font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+    display: inline-block;
+    height: auto;
+    margin-inline-end: 8px;
+    padding-inline: 7px;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    opacity: 1;
+    transition: all 0.2s;
+    text-align: start;
+}
+
+.ReactTags__remove {
+    margin-inline-start: 3px;
+    color: rgba(0,0,0,.45);
+    font-size: 10px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+#add-company {
+    display: none;
+}
+
+#add-series {
+    display: none;
+}
+
+#add-genre {
+    display: none;
+}
+
+#add-shop {
+    display: none;
+}
