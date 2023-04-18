@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {API_URL} from "../../config/constants";
-import {Navigate} from "react-router-dom";
+import { API_URL } from "../../config/constants";
+import { Navigate } from "react-router-dom";
 
-export function Logout(){
+export function Logout() {
     const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export function Logout(){
             });
     }, []);
 
-    if(isSuccess){
-        return <Navigate to='/' />
+    if (isSuccess) {
+        return <Navigate to="/" />;
     }
 }
