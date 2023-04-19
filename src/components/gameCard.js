@@ -14,10 +14,12 @@ export function GameCard(props) {
             <Link
                 style={{ color: "inherit" }}
                 className="game-link"
-                to={`/games/${game.title_id}`}
+                to={`/games/titles/${game.title_id}`}
             >
                 <div>
-                    <img className="game-pic" src={API_IMG_URL + game.title_picture} alt="" />
+                    <img className="game-pic" 
+                         src={API_IMG_URL + game.title_picture}
+                         alt="게임 이미지" />
                     <div className="game-recommend">
                         <MdThumbUp className="thumb-img">mdThumbUp</MdThumbUp>
                         <span className="game-recommend-num">

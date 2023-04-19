@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Logout } from "./user/logout";
 import { GameUploadPage } from "./games/upload";
+import {GameDetailPage} from "./games/detail";
 
 function App() {
     const navigate = useNavigate();
@@ -25,11 +26,15 @@ function App() {
     useEffect(() => {
         axios.get(`${API_URL}/auth`).then((res) => {
             setLogin(res.data.loginResult);
-            if (res.data.loginResult) {
-                return <Navigate to={location.pathname} />;
+            if(login){
+                return <Navigate to={location.pathname} />
             }
         });
     }, [location]);
+
+    if(location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/login'  && !login){
+        return <Navigate to="/login"/>
+    }
 
     return (
         <div>
@@ -66,7 +71,6 @@ function App() {
                         >
                             도서
                         </a>
-                        <a id="padding__a"></a>
                         {login || (
                             <a
                                 id="menu__my"
@@ -102,7 +106,7 @@ function App() {
                     <Route path="games">
                         <Route path=":index" element={<GameTitlePage />} />
                         <Route path="" element={<GameTitlePage />} />
-                        <Route path="titles/:id" />
+                        <Route path="titles/:id" element={<GameDetailPage/>}/>
                         <Route path="upload" element={<GameUploadPage />} />
                     </Route>
                     <Route path="/books" element={<h2>books</h2>} />

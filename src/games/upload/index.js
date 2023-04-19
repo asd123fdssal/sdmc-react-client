@@ -248,7 +248,7 @@ export function GameUploadPage() {
     }
 
     if(redirectId !== undefined && redirectId !== ''){
-        const url = "/games/" + redirectId
+        const url = "/games/title/" + redirectId
         console.log(url);
         return <Navigate to={url} />
     }
@@ -257,7 +257,7 @@ export function GameUploadPage() {
         <Form
             form={form}
             name="game-upload-form"
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             autoComplete="off"
         >

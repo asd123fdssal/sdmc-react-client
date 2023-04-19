@@ -45,68 +45,61 @@ export function Login() {
     }
 
     return (
-        <div className="container">
-            <div className="forms">
-                <Form
-                    form={form}
-                    name="login-form"
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
-                    style={{ maxWidth: 600 }}
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    autoComplete="off"
+        <Form
+            form={form}
+            name="login-form"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            autoComplete="off"
+            style={{margin:"12px 12px 12px 12px"}}
+        >
+            <Form.Item
+                label="아이디"
+                name="username"
+                rules={[
+                    {
+                        required: true,
+                        message: "아이디를 입력해주세요.",
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                label="비밀번호"
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: "비밀번호를 입력해주세요.",
+                    },
+                ]}
+            >
+                <Input.Password />
+            </Form.Item>
+
+            <Form.Item
+                name="remember"
+                valuePropName="checked"
+            >
+                <Checkbox>아이디 저장</Checkbox>
+            </Form.Item>
+
+            <Form.Item>
+                <Button
+                    className="buttons"
+                    type="primary"
+                    htmlType="submit"
                 >
-                    <Form.Item
-                        label="아이디"
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: "아이디를 입력해주세요.",
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="비밀번호"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: "비밀번호를 입력해주세요.",
-                            },
-                        ]}
-                    >
-                        <Input.Password />
-                    </Form.Item>
-
-                    <Form.Item
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{ offset: 8, span: 16 }}
-                    >
-                        <Checkbox>아이디 저장</Checkbox>
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button
-                            className="buttons"
-                            type="primary"
-                            htmlType="submit"
-                        >
-                            로그인
-                        </Button>
-                        <Link to="/signup">
-                            <Button className="buttons" type="primary">
-                                회원 가입
-                            </Button>
-                        </Link>
-                    </Form.Item>
-                </Form>
-            </div>
-        </div>
+                    로그인
+                </Button>
+                <Link to="/signup">
+                    <Button className="buttons" type="primary">
+                        회원 가입
+                    </Button>
+                </Link>
+            </Form.Item>
+        </Form>
     );
 }

@@ -116,3 +116,11 @@
     display: flex;
     justify-content: center;
 }
+
+#new-button{
+    border-radius: 6px;
+    background-color: aliceblue;
+    padding: 2px 5px 2px 5px;
+    display: flex;
+    margin: 5px 5px 0 0;
+}
