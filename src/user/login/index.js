@@ -4,10 +4,6 @@ import "./index.css";
 import {
     Link,
     Navigate,
-    redirect,
-    Route,
-    Routes,
-    useNavigate,
 } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../config/constants";

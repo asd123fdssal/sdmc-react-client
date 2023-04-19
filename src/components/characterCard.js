@@ -51,9 +51,9 @@ export function CharacterCard(props) {
 				</Space>
 			</div>
 			<div id={"strategy" + character.id} style={{display:"none"}}>
-				<p style={{maxHeight:"220px", overflow:"auto"}}>
+				<div style={{maxHeight:"220px", overflow:"auto"}}>
 					{addBreakLine(character.strategy)}
-				</p>
+				</div>
 			</div>
 			<Divider/>
 		</div>
