@@ -18,6 +18,7 @@ import axios from "axios";
 import { WithContext as ReactTags } from 'react-tag-input';
 import CheckableTag from "antd/es/tag/CheckableTag";
 import {Navigate} from "react-router-dom";
+import {getBase64} from "../../utils/utility";
 
 export function GameUploadPage() {
     const [form] = Form.useForm();
@@ -164,12 +165,6 @@ export function GameUploadPage() {
         });
     }
 
-    const getBase64 = (img, callback) => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => callback(reader.result));
-        reader.readAsDataURL(img);
-    };
-
     const handleChange = (info) => {
         if (info.file.status === "uploading") {
             return;
@@ -192,38 +187,22 @@ export function GameUploadPage() {
 
     const toggleAddCompany = () => {
         const addComp = document.getElementById("add-company");
-        if(addComp.style.display == "none"){
-            addComp.style.display = 'block';
-        }else{
-            addComp.style.display = 'none';
-        }
+        addComp.style.display = (addComp.style.display === "none" ? "block" : "none");
     };
 
     const toggleAddShop = () => {
         const addShop = document.getElementById("add-shop");
-        if(addShop.style.display == "none"){
-            addShop.style.display = 'block';
-        }else{
-            addShop.style.display = 'none';
-        }
+        addShop.style.display = (addShop.style.display === "none" ? "block" : "none");
     };
 
     const toggleAddSeries = () => {
         const addSer = document.getElementById("add-series");
-        if(addSer.style.display == "none"){
-            addSer.style.display = 'block';
-        }else{
-            addSer.style.display = 'none';
-        }
+        addSer.style.display = (addSer.style.display === "none" ? "block" : "none");
     }
 
     const toggleAddGenre = () => {
         const addGen = document.getElementById("add-genre");
-        if(addGen.style.display == "none"){
-            addGen.style.display = 'block';
-        }else{
-            addGen.style.display = 'none';
-        }
+        addGen.style.display = (addGen.style.display === "none" ? "block" : "none");
     }
 
     useEffect(() => {
@@ -235,8 +214,6 @@ export function GameUploadPage() {
 
     if(insertFin){
         const kor_name = document.getElementById("game_kor_name").value;
-        console.log(relDate)
-        console.log(kor_name)
         axios.get(`${API_URL}/api/games/id`, {
             params: {
                 release_date: relDate,
@@ -248,7 +225,7 @@ export function GameUploadPage() {
     }
 
     if(redirectId !== undefined && redirectId !== ''){
-        const url = "/games/" + redirectId
+        const url = "/games/title/" + redirectId
         console.log(url);
         return <Navigate to={url} />
     }
@@ -257,9 +234,10 @@ export function GameUploadPage() {
         <Form
             form={form}
             name="game-upload-form"
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             autoComplete="off"
+            style={{margin:"12px"}}
         >
             <Form.Item name="upload-images" label="게임 이미지">
                 <Upload

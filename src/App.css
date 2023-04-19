@@ -62,8 +62,8 @@ a {
 }
 
 #menu__contents {
-    padding: 10px 20px 10px 20px;
-    font-size: 20px;
+    padding: .5em .5em .5em .5em;
+    font-size: 1.1em;
 }
 
 #main-menu {
@@ -77,8 +77,8 @@ a {
 }
 
 #menu__my {
-    padding: 10px 10px 10px 10px;
-    font-size: 14px;
+    padding: .5em .5em .5em .5em;
+    font-size: 0.8em;
 }
 
 #menu__my:hover {
@@ -98,14 +98,4 @@ a {
 
 #main-menu > a {
     cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-    #header {
-        padding: 5px 5px;
-    }
-
-    #body {
-        padding: 10px 10px;
-    }
 }
