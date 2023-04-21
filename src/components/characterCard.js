@@ -1,19 +1,40 @@
 import {Button, Col, Divider, Form, Row, Space} from "antd";
 import CheckableTag from "antd/es/tag/CheckableTag";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {AiFillQuestionCircle, AiOutlineReload} from "react-icons/ai";
 import "./index.css";
 import {addBreakLine} from "../utils/utility";
-import {API_IMG_URL} from "../config/constants";
+import {API_IMG_URL, API_URL} from "../config/constants";
+import axios from "axios";
 
 export function CharacterCard(props) {
 	const character = props.character;
-	const process = ["미진행", "진행중", "완　료"];
+	const process = ["미진행", "진행중", "완료"];
 	const [selected, setSelected] = useState([]);
 
 	const handleChange = (tag, checked) => {
 		setSelected([tag]);
+		axios.post(`${API_URL}/member/character/progress`, {
+			gpid: character.gpid,
+			cid: character.cid,
+			progress: tag
+		}).then(
+
+		).catch(
+			(error) => {
+				console.log(error)
+			});
 	};
+
+	useEffect(() => {
+		if(character.progress === null || character.progress === "미진행"){
+			setSelected(["미진행"]);
+		}else if(character.progress === "진행중"){
+			setSelected(["진행중"]);
+		}else if(character.progress === "완료") {
+			setSelected(["완료"]);
+		}
+	}, [character])
 
 	return (
 		<div className="space-align-container" style={{width:"100%"}}>
@@ -51,9 +72,9 @@ export function CharacterCard(props) {
 				</Space>
 			</div>
 			<div id={"strategy" + character.id} style={{display:"none"}}>
-				<p style={{maxHeight:"220px", overflow:"auto"}}>
+				<div style={{maxHeight:"220px", overflow:"auto"}}>
 					{addBreakLine(character.strategy)}
-				</p>
+				</div>
 			</div>
 			<Divider/>
 		</div>

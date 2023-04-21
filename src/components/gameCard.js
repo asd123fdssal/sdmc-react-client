@@ -12,7 +12,6 @@ export function GameCard(props) {
     return (
         <div className="game-card">
             <Link
-                style={{ color: "inherit" }}
                 className="game-link"
                 to={`/games/titles/${game.title_id}`}
             >
