@@ -4,11 +4,13 @@ import React, {useEffect, useState} from "react";
 import {AiFillQuestionCircle, AiOutlineReload} from "react-icons/ai";
 import "./index.css";
 import {addBreakLine} from "../utils/utility";
-import {API_IMG_URL, API_URL} from "../config/constants";
+import {API_URL} from "../config/constants";
 import axios from "axios";
+import {Navigate, useNavigate} from "react-router-dom";
 
 export function CharacterCard(props) {
 	const character = props.character;
+	const navigate = useNavigate();
 	const process = ["미진행", "진행중", "완료"];
 	const [selected, setSelected] = useState([]);
 
@@ -40,7 +42,10 @@ export function CharacterCard(props) {
 		<div className="space-align-container" style={{width:"100%"}}>
 			<div className="space-align-block" style={{width:"100%"}}>
 				<Space align="center" style={{width:"100%"}}>
-					<img style={{width:"auto", maxHeight:"200px", marginRight:"12px"}} src={API_IMG_URL + character.pic_dir}/>
+					<img
+						style={{width:"auto", maxHeight:"200px", marginRight:"12px"}}
+						// src={API_IMG_URL + character.pic_dir}
+					/>
 					<div style={{marginRight:"12px"}}>
 						<span>{character.kor_name}</span>
 						<br/>
@@ -64,7 +69,7 @@ export function CharacterCard(props) {
 							}} type="primary" icon={<AiFillQuestionCircle />} size={"small"}>
 								공략
 							</Button>
-							<Button type="primary" icon={<AiOutlineReload />} size={"small"}>
+							<Button type="button" onClick={(e) => {navigate("/characters/update", {state :{character: character}})}} icon={<AiOutlineReload />} size={"small"}>
 								수정
 							</Button>
 						</Space>

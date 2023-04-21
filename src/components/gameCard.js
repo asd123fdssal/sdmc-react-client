@@ -17,7 +17,7 @@ export function GameCard(props) {
             >
                 <div>
                     <img className="game-pic" 
-                         src={API_IMG_URL + game.title_picture}
+                         // src={API_URL + game.title_picture}
                          alt="게임 이미지" />
                     <div className="game-recommend">
                         <MdThumbUp className="thumb-img">mdThumbUp</MdThumbUp>

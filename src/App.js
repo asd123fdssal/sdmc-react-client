@@ -18,6 +18,7 @@ import { Logout } from "./user/logout";
 import { GameUploadPage } from "./games/upload";
 import {GameDetailPage} from "./games/detail";
 import {CharacterUploadPage} from "./games/characters/upload";
+import {CharacterUpdatePage} from "./games/characters/update";
 
 function App() {
     const navigate = useNavigate();
@@ -114,7 +115,10 @@ function App() {
                         </Route>
                         <Route path="upload" element={<GameUploadPage/>} />
                     </Route>
-                    <Route path="characters/upload" element={<CharacterUploadPage/>}/>
+                    <Route path="characters">
+                        <Route path="upload" element={<CharacterUploadPage/>}/>
+                        <Route path="update" element={<CharacterUpdatePage/>}/>
+                    </Route>
                     <Route path="/books" element={<h2>books</h2>} />
                     <Route path="/movies" element={<h2>movies</h2>} />
                 </Routes>

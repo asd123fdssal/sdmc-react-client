@@ -87,7 +87,7 @@ export function GameDetailPage(){
 				<div className="space-align-block" style={{width:"100%"}}>
 					<Space align="center" style={{padding:"0px 8px 0px 8px", width:"100%"}}>
 						<img
-							src={API_IMG_URL + games.img_dir}
+							// src={API_IMG_URL + games.img_dir}
 							alt="게임 썸네일"
 							style={{ maxWidth: "100%", minWidth: "100px", height: "auto", paddingRight:"12px" }}
 						/>
