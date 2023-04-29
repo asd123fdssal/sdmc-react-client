@@ -3,7 +3,8 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { MdThumbUp } from "react-icons/md";
-import {API_IMG_URL} from "../config/constants";
+import {API_IMG_URL, DEBUG_MODE} from "../config/constants";
+import {AiOutlineComment} from "react-icons/ai";
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
 
@@ -17,8 +18,14 @@ export function GameCard(props) {
             >
                 <div>
                     <img className="game-pic" 
-                         src={API_IMG_URL + game.title_picture}
+                         src={DEBUG_MODE?"":API_IMG_URL + game.title_picture}
                          alt="게임 이미지" />
+                    <div className="game-comment">
+                        <AiOutlineComment className="thumb-img"></AiOutlineComment>
+                        <span className="game-recommend-num">
+                            {game.comments}
+                        </span>
+                    </div>
                     <div className="game-recommend">
                         <MdThumbUp className="thumb-img">mdThumbUp</MdThumbUp>
                         <span className="game-recommend-num">

@@ -18,6 +18,9 @@ import { Logout } from "./user/logout";
 import { GameUploadPage } from "./games/upload";
 import {GameDetailPage} from "./games/detail";
 import {CharacterUploadPage} from "./games/characters/upload";
+import {CharacterUpdatePage} from "./games/characters/update";
+import {GameUpdatePage} from "./games/update";
+import {Component} from "react";
 
 function App() {
     const navigate = useNavigate();
@@ -27,15 +30,15 @@ function App() {
     useEffect(() => {
         axios.get(`${API_URL}/auth`).then((res) => {
             setLogin(res.data.loginResult);
-            if(login){
-                return <Navigate to={location.pathname} />
-            }
+            // if(login){
+            //     return navigate(location.pathname);
+            // }else {
+            //     if(location.pathname !== undefined && location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/login'  && !login) {
+            //         return navigate("/login")
+            //     }
+            // }
         });
     }, [location]);
-
-    if(location.pathname !== undefined && location.pathname !== '/' && location.pathname !== '/signup' && location.pathname !== '/login'  && !login){
-        return <Navigate to="/login"/>
-    }
 
     return (
         <div>
@@ -113,6 +116,10 @@ function App() {
                             <Route path=":id" element={<GameDetailPage/>}/>
                         </Route>
                         <Route path="upload" element={<GameUploadPage/>} />
+                        <Route path="update" element={<GameUpdatePage/>}/>
+                    </Route>
+                    <Route path="characters">
+                        <Route path="upload" element={<CharacterUploadPage/>}/>
                     </Route>
                     <Route path="characters/upload" element={<CharacterUploadPage/>}/>
                     <Route path="/books" element={<h2>books</h2>} />
