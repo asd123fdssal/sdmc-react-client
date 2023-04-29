@@ -12,15 +12,24 @@ import {
 } from "antd";
 import "./index.css";
 import React, {useEffect, useState} from "react";
-import { API_URL } from "../../config/constants";
+import {API_IMG_URL, API_URL} from "../../config/constants";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
 import { WithContext as ReactTags } from 'react-tag-input';
 import CheckableTag from "antd/es/tag/CheckableTag";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {getBase64} from "../../utils/utility";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 export function GameUploadPage() {
+    const utc = require('dayjs/plugin/utc')
+    const timezone = require('dayjs/plugin/timezone')
+    const navigate = useNavigate();
+    dayjs.extend(utc)
+    dayjs.extend(timezone)
+
     const [form] = Form.useForm();
     const [imageUrl, setImageUrl] = useState(null);
     const [thumbnail, setThumbnail] = useState(null);
@@ -64,7 +73,7 @@ export function GameUploadPage() {
     const handleChangeGenre = (tag, checked) => {
         const nextSelectedTags = checked
                                  ? [...selectedTag, tag]
-                                 : selectedTag.filter((t) => t !== tag);
+                                 : selectedTag.filter((t) =>  t.value !== tag.value);
         setSelectedTag(nextSelectedTags);
     };
 
@@ -84,7 +93,17 @@ export function GameUploadPage() {
             shop: values.shop
         }).then((res) => {
             message.info(res.data.message);
-            setInsertFin(true);
+            const kor_name = document.getElementById("game_kor_name").value;
+            axios.get(`${API_URL}/api/games/id`, {
+                params: {
+                    release_date: relDate,
+                    kor_name: kor_name
+                }
+            }).then((res) => {
+                console.log(res.data.id);
+                return navigate(`/games/titles/${res.data.id}`);
+            });
+            //setInsertFin(true);
         }).catch((err) => {
             message.error(err.response.data.message);
         })
@@ -213,20 +232,11 @@ export function GameUploadPage() {
     }, []);
 
     if(insertFin){
-        const kor_name = document.getElementById("game_kor_name").value;
-        axios.get(`${API_URL}/api/games/id`, {
-            params: {
-                release_date: relDate,
-                kor_name: kor_name
-            }
-        }).then((res) => {
-            setRedirectId(res.data.id);
-        });
+
     }
 
     if(redirectId !== undefined && redirectId !== ''){
         const url = "/games/title/" + redirectId
-        console.log(url);
         return <Navigate to={url} />
     }
 
@@ -274,7 +284,7 @@ export function GameUploadPage() {
             <Divider />
             <Form.Item label="발매일">
                 <DatePicker
-                    onChange={(date, datestring) => {setRelDate(datestring);}}
+                    onChange={(date) => {setRelDate(dayjs(date, 'YYYY-MM-DD'));}}
                 />
                 <span style={{ paddingLeft: 30 }}>
                     * YYYY-MM-DD 형식으로 입력
@@ -349,7 +359,7 @@ export function GameUploadPage() {
                     {genreOption.map((tag) => (
                         <CheckableTag
                             key={tag.value}
-                            checked={selectedTag.includes(tag)}
+                            checked={selectedTag.some((genre) => tag.value === genre.value)}
                             onChange={(checked) => handleChangeGenre(tag, checked)}
                         >
                             {tag.value}

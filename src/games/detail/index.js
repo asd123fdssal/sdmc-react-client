@@ -1,26 +1,34 @@
-import {Button, Col, Divider, Form, Row, Space} from "antd";
-import {API_IMG_URL, API_URL} from "../../config/constants";
+import {Button, Col, Divider, Form, message, Row, Space} from "antd";
+import {API_IMG_URL, API_URL, DEBUG_MODE} from "../../config/constants";
 import "./index.css";
 import CheckableTag from "antd/es/tag/CheckableTag";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import {CharacterCard} from "../../components/characterCard";
-import {AiOutlineUserAdd, AiOutlineReload} from "react-icons/ai"
+import {AiOutlineUserAdd, AiOutlineReload, AiFillDelete} from "react-icons/ai"
+import {BiCommentAdd} from "react-icons/bi"
 import {addBreakLine} from "../../utils/utility";
+import {MdThumbUp} from "react-icons/md";
+import {UserComments} from "../../components/user_comments";
+import TextArea from "antd/es/input/TextArea";
 
 export function GameDetailPage(){
 	const navigate = useNavigate();
 	const [form] = Form.useForm();
-	let { id } = useParams();
+	let {id} = useParams();
 	const [games, setGames] = useState([]);
 	const [shop, setShop] = useState([]);
 	const [genreTag, setGenreTag] = useState([]);
 	const [nickTag, setNickTag] = useState([]);
 	const [characters, setCharacters] = useState([]);
-
-
+	const [recommend, setRecommend] = useState(false);
+	const [comments, setComments] = useState([]);
+	const [uid, setUid] = useState(null);
+	const [newComments ,setNewComments] = useState('');
+	const textAreaRef = useRef();
+	const [textAreaKey, setTextAreaKey] = useState(0);
 
 	useEffect(() => {
 		axios
@@ -31,40 +39,58 @@ export function GameDetailPage(){
 				setGenreTag(result.data.genres);
 				setNickTag(result.data.nickname);
 				setCharacters(result.data.characters);
+				setRecommend(result.data.recommend);
+				setComments(result.data.comments);
+				setUid(result.data.uid);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.error(error);
 			});
-	}, []);
+	}, [id]);
 
-	const onFinish = (values) => {
-		// axios.post(`${API_URL}/games/upload`, {
-		// 	company: values.company,
-		// 	series: values.series,
-		// 	imageUrl: imageUrl,
-		// 	release_date: relDate,
-		// 	org_name: values.org_name,
-		// 	kor_name: values.kor_name,
-		// 	synopsis: values.synopsis,
-		// 	hookcode: values.hookcode,
-		// 	etc: values.etc,
-		// 	genre: selectedTag,
-		// 	nickname: nickTag,
-		// 	shop: values.shop
-		// }).then((res) => {
-		// 	message.info(res.data.message);
-		// 	setInsertFin(true);
-		// }).catch((err) => {
-		// 	message.error(err.response.data.message);
-		// })
-	};
+	const handleDeleteEvt = () => {
+		refreshComments();
+	}
+
+	const updateRecommend = () => {
+		setRecommend(!recommend);
+		axios.put(`${API_URL}/games/titles/recommends`, {gid:id, recommend:!recommend})
+			.then((res) => {
+				message.info(res.data.message);
+			}).catch((err) => {
+				message.error(err.message);
+		})
+	}
+
+	const addNewComments = (e) => {
+		axios.post(`${API_URL}/api/games/comments/upload`, {gid:id, comments:newComments})
+			.then((res) => {
+				setNewComments('');
+				setTextAreaKey((prevKey) => prevKey + 1);
+				if(textAreaRef.current){
+					const nativeTextArea = textAreaRef.current.resizableTextArea.textArea;
+					nativeTextArea.value = '';
+				}
+				refreshComments();
+			}).catch((err) => {
+				message.error(err.message);
+		});
+	}
+
+	const refreshComments = () => {
+		axios.get(`${API_URL}/api/games/comments`, {params: {gid : id}
+		}).then((res) => {
+			setComments(res.data.comments);
+		}).catch((err) => {
+			message.error(err);
+		})
+	}
 
 	return (
 		<Form
 			form={form}
 			name="game-view-form"
 			initialValues={{ remember: false }}
-			onFinish={onFinish}
 			autoComplete="off"
 			style={{position:"relative", backgroundColor: "#FCFCFC", width:"100%"}}
 		>
@@ -75,8 +101,13 @@ export function GameDetailPage(){
 							<Button style={{paddingRight:"12px"}} onClick={(e) => {navigate('/characters/upload?title_id=' + id)}} type="primary" icon={<AiOutlineUserAdd />} size={"middle"}>
 								캐릭터 추가
 							</Button>
-							<Button onClick={(e) => {navigate('/games/upload')}} type="primary" icon={<AiOutlineReload />} size={"middle"}>
+							<Button onClick={(e) => {navigate('/games/update', {state :{games: games, shop: shop, genres: genreTag}})}}
+							        type="primary" icon={<AiOutlineReload />} size={"middle"}>
 								게임 수정
+							</Button>
+							<Button style={{color:"white"}} onClick={updateRecommend}
+							        type="primary" icon={<MdThumbUp />} size={"middle"}>
+								추천 {recommend?"해제":""}
 							</Button>
 						</Space>
 					</div>
@@ -85,9 +116,9 @@ export function GameDetailPage(){
 
 			<div className="space-align-container" style={{width:"100%"}}>
 				<div className="space-align-block" style={{width:"100%"}}>
-					<Space align="center" style={{padding:"0px 8px 0px 8px", width:"100%"}}>
+					<Space align="center" style={{padding:"0px 8px 0px 8px", width:"100%", maxWidth:"700px"}}>
 						<img
-							// src={API_IMG_URL + games.img_dir}
+							src={DEBUG_MODE?"":API_IMG_URL + games.img_dir}
 							alt="게임 썸네일"
 							style={{ maxWidth: "100%", minWidth: "100px", height: "auto", paddingRight:"12px" }}
 						/>
@@ -175,11 +206,36 @@ export function GameDetailPage(){
 			<Row style={{padding:"0 12px 0 12px", wordWrap:"break-word"}}>
 				<Space direction="vertical" size="middle" style={{ display: 'flex', width:"100%" }}>
 					<span style={{fontSize:"18px"}} >캐릭터</span>
+					<Divider/>
 					<Space direction="vertical" size="middle" style={{ display: 'flex' }}>
 						{characters.map(function (character) {
-							return <CharacterCard character={character} />;
+							return <CharacterCard key={character.id} character={character} />;
 						})}
 					</Space>
+				</Space>
+			</Row>
+			<Row style={{padding:"0 12px 0 12px", wordWrap:"break-word"}}>
+				<Space direction="vertical" size="middle" style={{ display: 'flex', width:"100%" }}>
+					<span style={{fontSize:"18px"}} >유저 코멘트</span>
+					<Divider/>
+					<Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+						{comments.map(function (comment){
+							return <UserComments key={comment.id} onCustomEvent={handleDeleteEvt} comment={comment} uid={uid} />;
+						})}
+					</Space>
+					<Space>
+						<span style={{fontSize:"18px"}} >코멘트 등록</span>
+						<Button onClick={addNewComments} style={{marginLeft: "12px"}} type="primary" icon={<BiCommentAdd />} size={"small"}>등록</Button>
+					</Space>
+					<TextArea
+						key={textAreaKey}
+						ref={textAreaRef}
+						defaultValue=""
+						onChange={(e) => {setNewComments(e.target.value)}}
+						showCount
+						maxLength={400}
+						style={{ height: 100, resize: "none" }}
+					/>
 				</Space>
 			</Row>
 		</Form>

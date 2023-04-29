@@ -1,25 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Button, DatePicker, Divider, Form, Input, message, Space, Upload} from "antd";
-import {API_URL} from "../../../config/constants";
-import {getBase64} from "../../../utils/utility";
+import {Button, Divider, Form, Input, message, Upload} from "antd";
+import {API_IMG_URL, API_URL} from "../../../config/constants";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
-import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export function CharacterUpdatePage() {
 	const location = useLocation();
-	const navigate = useNavigate();
 	const character = location.state.character;
+	const navigate = useNavigate();
 	const [form] = Form.useForm();
 	const [imageUrl, setImageUrl] = useState(null);
-	const [thumbnail, setThumbnail] = useState(null);
-	const [insertFin, setInsertFin] = useState(false);
-	const [orgName, setOrgName] = useState(character.org_name);
 
 	useEffect(() => {
-		console.log(character)
 		setImageUrl(character.pic_dir);
-	}, [])
+	}, [character])
 
 	const onFinish = (values) => {
 		axios.post(`${API_URL}/characters/update`, {
@@ -43,9 +38,6 @@ export function CharacterUpdatePage() {
 		if (info.file.status === "done") {
 			const res = info.file.response;
 			setImageUrl(res.imageUrl);
-			getBase64(info.file.originFileObj, (url) => {
-				setThumbnail(url);
-			});
 		}
 	};
 
@@ -67,7 +59,7 @@ export function CharacterUpdatePage() {
 					onChange={handleChange}
 				>
 					<img
-						// src={API_IMG__URL + character.pic_dir}
+						// src={API_IMG_URL + imageUrl}
 						alt="캐릭터 썸네일"
 						style={{ maxWidth: "100%", minWidth: "100px", height: "auto", paddingRight:"12px" }}
 					/>
