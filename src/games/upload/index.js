@@ -232,7 +232,6 @@ export function GameUploadPage() {
     }, []);
 
     if(insertFin){
-
     }
 
     if(redirectId !== undefined && redirectId !== ''){

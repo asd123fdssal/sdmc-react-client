@@ -120,8 +120,8 @@ function App() {
                     </Route>
                     <Route path="characters">
                         <Route path="upload" element={<CharacterUploadPage/>}/>
-                        <Route path="update" element={<CharacterUpdatePage/>}/>
                     </Route>
+                    <Route path="characters/upload" element={<CharacterUploadPage/>}/>
                     <Route path="/books" element={<h2>books</h2>} />
                     <Route path="/movies" element={<h2>movies</h2>} />
                 </Routes>
